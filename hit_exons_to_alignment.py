@@ -64,7 +64,7 @@ Contigs = {}
 for exon in ReferenceContigs:
     Contigs[exon] = {}
 
-print len(Contigs)
+print len(Contigs) #For testing
 
 
 # Opening the pslx list and grabbing the entries
@@ -75,9 +75,10 @@ while ConLine:
     ConLine = ConfigFile.readline().strip()
 
 ConfigFile.close()
-print len(pslxFiles)
+print len(pslxFiles) #For testing
 
 Names = []
+FoundExons = [] #For testing
 
 # Processing each pslx file
 for Filename in pslxFiles:
@@ -91,7 +92,23 @@ for Filename in pslxFiles:
         if not ',' in pslxLine:
             pslxLine = File.readline().strip()
             continue
-        print pslxLine
+        Fields = pslxLine.split("\t")
+        Length = int(Fields[0]) + int(Fields[1])
+        ThisExon = Fields[13]
+        if not ThisExon in FoundExons:
+            FoundExons.append(ThisExon) # For testing
+        if not ThisExon in Contigs:
+            sys.exit("The contigs in the fasta file don't match those in the .pslx files. Be sure the names of the contigs don't contain spaces.")
+        if Name in Contigs[ThisExon]:
+            if Length > Contigs[ThisExon][Name][0]:
+                Contigs[ThisExon][Name] = [Length, Fields[21].rstrip(',')]
+        else:
+            Contigs[ThisExon][Name] = [Length, Fields[21].rstrip(',')]
         pslxLine = File.readline().strip()
 
     File.close()
+
+for exon in FoundExons:
+    print exon
+    print Contigs[exon]
+
