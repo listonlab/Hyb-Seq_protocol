@@ -1,18 +1,18 @@
 #!/usr/bin/env python
-from os import remove
-from os import path  #Importing two methods from os module
+from os import path
+from os import makedirs
 from re import sub   #This imports regular expression usage
 from optparse import OptionParser    #Imports the option parser module
 
 ###### OPTIONS and USAGE ######
-parser = OptionParser(usage = """hit_exons_to_alignment.py -c CONFIG_file -f FASTA_file
+parser = OptionParser(usage = """assembled_exons_to_fastas.py -l PLSX_list -f FASTA_file -d OUT_directory
 
-hit_exons_to_alignment.py -- Processes the BLAT output from several samples 
+assembled_exons_to_fastas.py -- Processes the BLAT output from several samples 
     comparing reference-guided contig assemblies with the reference (probe) 
-    contigs to produce a sequence alignment across the samples for each contig,
-    suitable for phylognetic analysis.
+    contigs. The output is a directory containing a fasta file for each
+    reference contig and the sequence for each sample.
 
-Copyright (c) 2014 Kevin Weitemier.
+Copyright (c) 2014 Weitemier et al.
 Version 0.01
 
 This program is free software: you can redistribute it and/or modify it under
@@ -26,25 +26,28 @@ PARTICULAR PURPOSE.  See the GNU General Public License for more details. You
 should have received a copy of the GNU General Public License along with this
 program.  If not, see <http://www.gnu.org/licenses/>.
 
-Input - A config file containing the names of every .pslx file to be processed
-   (one file per line), and a fasta file of the targeted contigs or exons.""")
-parser.add_option("-c", action="store", type="string", dest="conname",
-    help="Config filename", default="")
+Input - A file containing a list of every .pslx file to be processed (one file
+    per line), and a fasta file of the targeted contigs or exons.""")
+parser.add_option("-l", action="store", type="string", dest="conname",
+    help="File containing a list of the .pslx files to process; one name per line", default="")
 parser.add_option("-f", action="store", type="string", dest="faname",
-    help="Contig fasta filename", default="")
+    help="Fasta file of targeted contigs", default="")
+parser.add_option("-d", action="store", type="string", dest="dirname",
+    help="Name of directory for output files", default="Exons_to_be_aligned")
 (options, args) = parser.parse_args()
 
 # Makes sure all filenames are given
 if options.conname == "":
-    parser.error("Please include a config file using -c.")
+    parser.error("Please include a .pslx list file using -l.")
 if options.faname == "":
     parser.error("Please include a fasta file using -f.")
-
-###### DEFINING FUNCTIONS ######
+if path.exists(options.dirname):
+    parser.error("The output directory already exists. Please remove it or provide a new name using the -d option.")
 
 ###### OPENING INPUT/OUTPUT FILES ######
 ConfigFile = open(options.conname, 'r')
 FastaFile = open(options.faname, 'r')
+makedirs(options.dirname)
 
 # Opening the contigs file and makeing a dictionary of each sequence
 ReferenceContigs = {}
@@ -57,7 +60,6 @@ while FaLine:
     Seq = FaLine
     ReferenceContigs[ID] = Seq
     FaLine = FastaFile.readline().strip()
-
 FastaFile.close()
 
 Contigs = {}
@@ -85,7 +87,6 @@ for Filename in pslxFiles:
     Name = sub('Final_Assembly_',r'',Filename)
     Name = sub('.pslx',r'',Name)
     Names.append(Name)
-    
     File = open(Filename, 'r')
     pslxLine = File.readline().strip()
     while pslxLine:
@@ -95,7 +96,7 @@ for Filename in pslxFiles:
         Fields = pslxLine.split("\t")
         Length = int(Fields[0]) + int(Fields[1])
         ThisExon = Fields[13]
-        if not ThisExon in FoundExons:
+        if not ThisExon in FoundExons: # For testing
             FoundExons.append(ThisExon) # For testing
         if not ThisExon in Contigs:
             sys.exit("The contigs in the fasta file don't match those in the .pslx files. Be sure the names of the contigs don't contain spaces.")
@@ -105,10 +106,21 @@ for Filename in pslxFiles:
         else:
             Contigs[ThisExon][Name] = [Length, Fields[21].rstrip(',')]
         pslxLine = File.readline().strip()
-
     File.close()
 
-for exon in FoundExons:
-    print exon
-    print Contigs[exon]
+for exon in FoundExons: #For testing
+    print exon #For testing
+    print Contigs[exon] #For testing
 
+for exon in Contigs:
+    OutExon = sub(',', r'...', exon)
+    OutName = options.dirname + '/' + "To_align_" + OutExon + ".fasta"
+    OutFile = open(OutName, 'w')
+    Filler = 'n' * len(ReferenceContigs[exon])
+    for Name in Names:
+        if Name in Contigs[exon]:
+            OutFile.write(">%s\n%s\n" % (Name, Contigs[exon][Name][1]))
+        else:
+            OutFile.write(">%s\n%s\n" % (Name, Filler))
+    OutFile.close()
+#EOF
