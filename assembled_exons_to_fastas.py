@@ -51,15 +51,16 @@ makedirs(options.dirname)
 
 # Opening the contigs file and makeing a dictionary of each sequence
 ReferenceContigs = {}
-FaLine = FastaFile.readline().strip()
+FaLine = FastaFile.readline()
 while FaLine:
+    FaLine = FaLine.strip()
     if not FaLine.startswith('>'):
         sys.exit("""The fasta file is not formatted correctly. Please be sure that each entry is given on exactly two lines: the ID line and the sequence line.""")
     ID = FaLine.lstrip('>')
     FaLine = FastaFile.readline().strip()
     Seq = FaLine
     ReferenceContigs[ID] = Seq
-    FaLine = FastaFile.readline().strip()
+    FaLine = FastaFile.readline()
 FastaFile.close()
 
 Contigs = {}
@@ -68,24 +69,25 @@ for exon in ReferenceContigs:
 
 # Opening the pslx list and grabbing the entries
 pslxFiles = []
-ConLine = ConfigFile.readline().strip()
+ConLine = ConfigFile.readline()
 while ConLine:
+    ConLine = ConLine.strip()
     pslxFiles.append(ConLine)
-    ConLine = ConfigFile.readline().strip()
+    ConLine = ConfigFile.readline()
 ConfigFile.close()
 
 Names = []
-
 # Processing each pslx file
 for Filename in pslxFiles:
     Name = sub('Final_Assembly_',r'',Filename)
     Name = sub('.pslx',r'',Name)
     Names.append(Name)
     File = open(Filename, 'r')
-    pslxLine = File.readline().strip()
+    pslxLine = File.readline()
     while pslxLine:
+        pslxLine = pslxLine.strip()
         if not ',' in pslxLine:
-            pslxLine = File.readline().strip()
+            pslxLine = File.readline()
             continue
         Fields = pslxLine.split("\t")
         Length = int(Fields[0]) + int(Fields[1])
@@ -97,7 +99,7 @@ for Filename in pslxFiles:
                 Contigs[ThisExon][Name] = [Length, Fields[21].rstrip(',')]
         else:
             Contigs[ThisExon][Name] = [Length, Fields[21].rstrip(',')]
-        pslxLine = File.readline().strip()
+        pslxLine = File.readline()
     File.close()
 
 for exon in Contigs:
