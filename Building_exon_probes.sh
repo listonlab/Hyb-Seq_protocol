@@ -18,6 +18,7 @@
 #not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 #Match genome and transcriptome sequences
+#Fasta files should be formatted so that a sequence is not split over lines.
 blat genome.fasta transcriptome.fasta -tileSize=8 -minIdentity=99 -noHead -out=pslx genome_v_transcriptome.pslx
 
 #Find and extract transcriptome sequences with only one match against the genome
@@ -51,4 +52,3 @@ cd-hit-est -i large_enough_unique_single_hits.fasta -o large_enough_unique_singl
 grab_singleton_clusters.py -i large_enough_unique_single_hits_cluster90.fasta.clstr -o unique_blocks_large_single_hits_cluster90.fasta.clstr
 grep -v '>Cluster' unique_blocks_large_single_hits_cluster90.fasta.clstr | cut -d' ' -f2 | sed 's/\.\.\.//' > unique_blocks_large_single_hits
 grep -A1 --no-group-separator -f unique_blocks_large_single_hits large_enough_unique_single_hits.fasta > blocks_for_probe_design.fasta
-
