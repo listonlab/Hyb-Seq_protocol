@@ -45,12 +45,12 @@
 ################################################################################
 #Match genome and transcriptome sequences
 ################################################################################
-#Here we use BLAT to identify trancripts that have high identity to genomic
+#Here we use BLAT to identify transcripts that have high identity to genomic
 #contigs. As a default the identity is set very high (99%) because the
 #transcripts and genomic contigs are expected to come from the same individual.
 #If this is not the case, particularly if the transcriptome and genome originate
-#from different taxa, you may wish to reduce the stringency by modifying the
-#-minIdentity flag.
+#from different taxa, you should reduce the stringency by modifying the
+#"-minIdentity" flag.
 
 #The fasta files should be formatted so that each sequence takes up exactly two
 #lines: the ID line and the sequence line.
@@ -65,7 +65,7 @@ blat genome.fasta transcriptome.fasta -tileSize=8 -minIdentity=99 -noHead -out=p
 #Find and extract transcriptome sequences with only one match against the genome
 ################################################################################
 #This step removes transcripts that have matches against more than one genomic
-#contig. This may exlcude loci that are truly single copy in cases where a locus
+#contig. This may exclude loci that are truly single copy in cases where a locus
 #is split across more than one genomic contig.
 
 echo """Finding and extracting matches with a single hit."""
@@ -116,7 +116,7 @@ grep -f unique_single_transcript_hits whole_gene_single_hit_genome_v_transcripto
 ################################################################################
 #Find loci and exons that meet length requirements
 ################################################################################
-#This step finds every remaing locus and all the remaining exons that make up
+#This step finds every remaining locus and all the remaining exons that make up
 #that locus. If an exon is above a specified length, the program adds it to the
 #total length for that locus. It outputs the sequences of all the large exons
 #for each locus that exceeds a specified minimum length. The default minimum
@@ -133,8 +133,8 @@ date
 ################################################################################
 #Remove blocks with 90% or greater similarity
 ################################################################################
-#Finally, any remaining indivudual exons that share 90% identity are removed.
-#This is to prevent any problems caused by the cross-amplification of similar
+#Finally, any remaining individual exons that share >=90% identity are removed.
+#This is to prevent any problems caused by the cross-enrichment of similar
 #exons across different loci.
 
 echo """Removing individual exons with high identity."
