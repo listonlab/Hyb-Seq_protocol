@@ -1,0 +1,13 @@
+Copyright (c) Weitemier et al., 2014
+
+A protocol for developing probes for targeted sequence capture from an input of
+genomic and transcriptomic data is contained within Building_exon_probes.sh.
+This file is both a program that can be run in a Unix environment, and a
+helpful document full of notes that can be read.
+
+A workflow for analyzing the raw reads obtained from the Hyb-Seq protocol is
+described in Appendix 2 (to be added).
+
+assembled_exons_to_fastas, blat_block_analyzer, and grab_singleton_clusters are
+all companion programs integrated into either the probe development or read
+analysis pipelines.
