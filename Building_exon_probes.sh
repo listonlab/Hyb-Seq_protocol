@@ -1,6 +1,7 @@
 #/bin/tcsh
 
 #Appendix S1
+#Building_exon_probes.sh
 #Workflow and script for development of Hyb-Seq target probes
 
 #Disclaimer:
