@@ -142,6 +142,8 @@ cd-hit-est -i large_enough_unique_single_hits.fasta -o large_enough_unique_singl
 ./grab_singleton_clusters.py -i large_enough_unique_single_hits_cluster90.fasta.clstr -o unique_blocks_large_single_hits_cluster90.fasta.clstr
 grep -v '>Cluster' unique_blocks_large_single_hits_cluster90.fasta.clstr | cut -d' ' -f2 | sed -e 's/\.\.\./\\\>/' -e 's/^/^/' > unique_blocks_large_single_hits
 grep -A1 --no-group-separator -f unique_blocks_large_single_hits large_enough_unique_single_hits.fasta > blocks_for_probe_design.fasta
+echo """Process complete."""
+date
 
 #The final output file, blocks_for_probe_design.fasta, contains sequences of
 #each exon for each locus that are thought to be low-copy within the genome and
