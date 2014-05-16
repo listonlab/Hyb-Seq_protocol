@@ -38,7 +38,9 @@
 #
 #Additional notes: This script calls two third-party programs, BLAT and
 #CD-HIT-EST. These need to be installed on your system so that they can be
-#called simply from the commands "blat" and "cd-hit-est", respectively.
+#called simply from the commands "blat" and "cd-hit-est", respectively. It is
+#also necessary to have Python installed to run grab_singleton_clusters.py and
+#blat_block_analyzer.py.
 
 
 ################################################################################
