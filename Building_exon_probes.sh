@@ -27,13 +27,12 @@
 #2) A fasta file of transcriptome contigs, named "transcriptome.fasta"
 #3) the file provided with this script named "grab_singleton_clusters.py" and
 #4) the file provided with this script named "blat_block_analyzer.py"
-#You may need to make this
-#script and the other two programs executable, or able to be
-#recognized as programs. To do that run the following command:
+#You may need to make this script and the other two programs executable, or able
+#to be recognized as programs. To do this, run the following command:
 #
 #  chmod +x Building_exon_probes.sh grab_singleton_clusters.py blat_block_analyzer.py
 #
-#Finally, to run the script type the following command:
+#Finally, to run the script, type the following command:
 #
 #  ./Building_exon_probes.sh
 #
@@ -152,6 +151,11 @@ date
 #delimited and contains the name of the locus it originates from (from the
 #transcriptome ID), the name of the genomic contig it matches followed by an
 #underscore and a number indicating the exon within the locus (exon numbering
-#within a locus is arbitrary), and the length of the exon.
+#within a locus is arbitrary), and the length of the exon. As an example, the
+#following ID line identifies the third exon found within transciptome locus
+#m.1234 and genome contig 100, and has a length of 200 bp:
+#
+#  >m.1234,100_3,200
+#  ACGT...
 
 #End of File.
