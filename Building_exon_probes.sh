@@ -96,7 +96,7 @@ grep -A1 --no-group-separator -f single_whole_hits_vs_genome.txt transcriptome.f
 
 echo """Clustering transcripts with 100% identity."""
 date
-cd-hit-est -i single_transcript_hits.fasta -o single_transcript_hits_cluster_100.fasta -c 1.0 -p 1 > cluster_100_single_transcript_hits_log.txt
+cd-hit-est -i single_transcript_hits.fasta -o single_transcript_hits_cluster_100.fasta -d 0 -c 1.0 -p 1 > cluster_100_single_transcript_hits_log.txt
 
 ################################################################################
 #Remove transcripts with 90% or greater similarity
@@ -107,7 +107,7 @@ cd-hit-est -i single_transcript_hits.fasta -o single_transcript_hits_cluster_100
 
 echo """Clustering and removing transcripts with 90% identity."""
 date
-cd-hit-est -i single_transcript_hits_cluster_100.fasta -o single_transcript_hits_cluster_90.fasta -c 0.9 -p 1 -g 1 > cluster_90_single_transcript_hits_log.txt
+cd-hit-est -i single_transcript_hits_cluster_100.fasta -o single_transcript_hits_cluster_90.fasta -d 0 -c 0.9 -p 1 -g 1 > cluster_90_single_transcript_hits_log.txt
 ./grab_singleton_clusters.py -i single_transcript_hits_cluster_90.fasta.clstr -o unique_single_transcript_hits_cluster_90.fasta.clstr
 grep -v '>Cluster' unique_single_transcript_hits_cluster_90.fasta.clstr | cut -d' ' -f2 | sed -e 's/\.\.\./\\\>/' -e 's/^/^/' > unique_single_transcript_hits
 grep -A1 --no-group-separator -f unique_single_transcript_hits single_transcript_hits_cluster_100.fasta > unique_single_transcript_hits.fasta
@@ -140,7 +140,7 @@ date
 
 echo """Removing individual exons with high identity."
 date
-cd-hit-est -i large_enough_unique_single_hits.fasta -o large_enough_unique_single_hits_cluster90.fasta -c 0.9 -p 1 -g 1 > cluster_90_large_enough_unique_single_hits_log.txt
+cd-hit-est -i large_enough_unique_single_hits.fasta -o large_enough_unique_single_hits_cluster90.fasta -d 0 -c 0.9 -p 1 -g 1 > cluster_90_large_enough_unique_single_hits_log.txt
 ./grab_singleton_clusters.py -i large_enough_unique_single_hits_cluster90.fasta.clstr -o unique_blocks_large_single_hits_cluster90.fasta.clstr
 grep -v '>Cluster' unique_blocks_large_single_hits_cluster90.fasta.clstr | cut -d' ' -f2 | sed -e 's/\.\.\./\\\>/' -e 's/^/^/' > unique_blocks_large_single_hits
 grep -A1 --no-group-separator -f unique_blocks_large_single_hits large_enough_unique_single_hits.fasta > blocks_for_probe_design.fasta
@@ -154,10 +154,10 @@ date
 #transcriptome ID), the name of the genomic contig it matches followed by an
 #underscore and a number indicating the exon within the locus (exon numbering
 #within a locus is arbitrary), and the length of the exon. As an example, the
-#following ID line identifies the third exon found within transciptome locus
-#m.1234 and genome contig 100, and has a length of 200 bp:
+#following ID line identifies the second exon found within transciptome locus
+#m.33568 and genome contig 5193133, which has a length of 186 bp:
 #
-#  >m.1234,100_3,200
-#  ACGT...
+#  >m.33568,5193133_2,186
+#  ctca...
 
 #End of File.

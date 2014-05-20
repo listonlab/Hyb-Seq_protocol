@@ -61,7 +61,6 @@ while Line:
             while not Line.startswith('>'):
                 ListOfLines.append(Line.strip())
                 Line = Infile.readline()
-                print(StoredCluster)
                 if not Line:
                     break
             for Name in ListOfLines:
