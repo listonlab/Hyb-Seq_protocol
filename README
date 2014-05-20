@@ -11,3 +11,5 @@ described in Appendix 2 (to be added).
 assembled_exons_to_fastas, blat_block_analyzer, and grab_singleton_clusters are
 all companion programs integrated into either the probe development or read
 analysis pipelines.
+
+Example datasets have been added: genome.fasta and transcriptome.fasta.
