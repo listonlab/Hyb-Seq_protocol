@@ -10,7 +10,7 @@ grab_singleton_clusters.py -- Finds those clusters from a CD-HIT (and related
     with 100% identity (in which case it chooses the longest sequence). It
     produces a file in .clstr format. 
 
-Copyright (c) 2014 Weitemier et al.
+Copyright (c) 2014 Kevin Weitemier
 Version 1.00
 This program is free software: you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software

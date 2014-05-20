@@ -5,15 +5,15 @@ from re import sub   #This imports regular expression usage
 from optparse import OptionParser    #Imports the option parser module
 
 ###### OPTIONS and USAGE ######
-parser = OptionParser(usage = """assembled_exons_to_fastas.py -l PLSX_list -f FASTA_file -d OUT_directory
+parser = OptionParser(usage = """assembled_exons_to_fastas.py -l PLSX_list -f FASTA_file -d OUT_directory [-g] [-r] [-n reference_NAME]
 
 assembled_exons_to_fastas.py -- Processes the BLAT output from several samples 
     comparing reference-guided contig assemblies with the reference (probe) 
     contigs. The output is a directory containing a fasta file for each
     reference contig holding the sequence for each sample.
 
-Copyright (c) 2014 Weitemier et al.
-Version 0.01
+Copyright (c) 2014 Kevin Weitemier
+Version 1.0
 
 This program is free software: you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software
@@ -27,13 +27,24 @@ should have received a copy of the GNU General Public License along with this
 program.  If not, see <http://www.gnu.org/licenses/>.
 
 Input - A file containing a list of every .pslx file to be processed (one file
-    per line), and a fasta file of the targeted contigs or exons.""")
+    per line), and a fasta file of the targeted contigs or exons. The .pslx
+    files to be processed need to have been created with the targeted exons
+    input as the 'database' or 'targets.'""")
 parser.add_option("-l", action="store", type="string", dest="conname",
     help="File containing a list of the .pslx files to process; one name per line", default="")
 parser.add_option("-f", action="store", type="string", dest="faname",
     help="Fasta file of targeted contigs", default="")
 parser.add_option("-d", action="store", type="string", dest="dirname",
     help="Name of directory for output files", default="Exons_to_be_aligned")
+parser.add_option("-g", action="store_true", default=False, dest="filler",
+    help="""Insert gaps? If the sample sequence matches the reference across two or more
+blocks, a string of Ns will be inserted equal to the size of the gap(s). In
+certain cases this may match the size of introns. Without this separate blocks will be concatenated. Default=False""")
+parser.add_option("-r", action="store_true", default=False, dest="ref_out",
+    help="""Output the reference sequence as an entry in each sequence alignment? default=False""")
+parser.add_option("-n", action="store", type="string", dest="ref_name", default="Reference",
+    help="""If the reference sequence is output (-r), what name will be given to this sample
+in the alignment files? Default=Reference""")
 (options, args) = parser.parse_args()
 
 # Makes sure all filenames are given
@@ -93,8 +104,8 @@ for Filename in pslxFiles:
         Length = int(Fields[0]) + int(Fields[1])
         ThisExon = Fields[13]
         MySeq = ''
-        if int(Fields[17]) == 1:
-            MySeq = Fields[21].rstrip(',')
+        if int(Fields[17]) == 1 or not options.filler:
+            MySeq = Fields[21].replace(",", "")
         else:
             blockSizes = Fields[18].split(",")
             blockStarts = Fields[19].split(",")
@@ -124,5 +135,7 @@ for exon in Contigs:
             OutFile.write(">%s\n%s\n" % (Name, Contigs[exon][Name][1]))
         else:
             OutFile.write(">%s\n%s\n" % (Name, Filler))
+    if options.ref_out:
+        OutFile.write(">%s\n%s\n" % (options.ref_name, ReferenceContigs[exon]))
     OutFile.close()
 #EOF
