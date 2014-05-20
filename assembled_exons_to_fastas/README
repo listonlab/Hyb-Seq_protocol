@@ -1,4 +1,12 @@
-Written by Kevin Weitemier, copyright(c) 2014 Weitemier et al.
+Usage: assembled_exons_to_fastas.py -l PLSX_list -f FASTA_file -d OUT_directory [-g] [-r] [-n reference_NAME]
+
+assembled_exons_to_fastas.py -- Processes the BLAT output from several samples
+    comparing reference-guided contig assemblies with the reference (probe)
+    contigs. The output is a directory containing a fasta file for each
+    reference contig holding the sequence for each sample.
+
+Copyright (c) 2014 Kevin Weitemier
+Version 1.0
 
 This program is free software: you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software
@@ -11,12 +19,23 @@ PARTICULAR PURPOSE.  See the GNU General Public License for more details. You
 should have received a copy of the GNU General Public License along with this
 program.  If not, see <http://www.gnu.org/licenses/>.
 
-Usage: assembled_exons_to_fastas.py -l PLSX_list -f FASTA_file -d OUT_directory
-
-assembled_exons_to_fastas.py -- Processes the BLAT output from several samples
-    comparing reference-guided contig assemblies with the reference (probe)
-    contigs. The output is a directory containing a fasta file for each
-    reference contig holding the sequence for each sample.
-
 Input - A file containing a list of every .pslx file to be processed (one file
-    per line), and a fasta file of the targeted contigs or exons.
+    per line), and a fasta file of the targeted contigs or exons. The .pslx
+    files to be processed need to have been created with the targeted exons
+    input as the 'database' or 'targets.'
+
+Options:
+  -h, --help   show this help message and exit
+  -l CONNAME   File containing a list of the .pslx files to process; one name
+               per line
+  -f FANAME    Fasta file of targeted contigs
+  -d DIRNAME   Name of directory for output files
+  -g           Insert gaps? If the sample sequence matches the reference
+               across two or more blocks, a string of Ns will be inserted
+               equal to the size of the gap(s). In certain cases this may
+               match the size of introns. Without this separate blocks will be
+               concatenated. Default=False
+  -r           Output the reference sequence as an entry in each sequence
+               alignment? default=False
+  -n REF_NAME  If the reference sequence is output (-r), what name will be
+               given to this sample in the alignment files? Default=Reference
