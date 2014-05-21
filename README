@@ -1,9 +1,10 @@
 Copyright (c) Weitemier et al., 2014
 
 A protocol for developing probes for targeted sequence capture from an input of
-genomic and transcriptomic data is contained within Building_exon_probes.sh.
+genomic and transcriptomic data is contained within Appendix 1:
+Building_exon_probes.sh.
 This file is both a program that can be run in a Unix environment, and a
-helpful document full of notes that can be read.
+helpful document with notes.
 
 A workflow for analyzing the raw reads obtained from the Hyb-Seq protocol is
 described in Appendix 2 (to be added).
