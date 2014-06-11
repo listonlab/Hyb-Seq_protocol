@@ -1,10 +1,15 @@
-Copyright (c) Weitemier et al., 2014
+Copyright (c) 2014
+K. Weitemier, S.C.K. Straub, R. Cronn, M. Fishbein, A. McDonnell, R. Schmickl, and A. Liston
+
+Programs and documentation accompanying the paper:
+Hyb-Seq: Combining target enrichment and genome skimming for plant phylogenomics
+[citation]
 
 A protocol for developing probes for targeted sequence capture from an input of
 genomic and transcriptomic data is contained within Appendix 1:
 Building_exon_probes.sh.
 This file is both a program that can be run in a Unix environment, and a
-helpful document with notes.
+helpful document with detailed notes.
 
 A workflow for analyzing the raw reads obtained from the Hyb-Seq protocol is
 described in Appendix 2 (to be added).

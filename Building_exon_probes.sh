@@ -4,6 +4,19 @@
 #Building_exon_probes.sh
 #Workflow and script for development of Hyb-Seq target probes
 
+
+################################################################################
+#
+#                       *** PLEASE CONTINUE READING ***
+#
+#THIS FILE IS BOTH A DETAILED DESCRIPTION OF THE HYB-SEQ PROBE DESIGN PROCESS,
+#AND A PROGRAM THAT CAN BE RUN IN A LINUX (AND POSSIBLY OS X) ENVIRONMENT.
+#
+#COMMENTS ARE CONTAINED ON LINES BEGINNING WITH A # SYMBOL.
+#
+################################################################################
+
+
 #Disclaimer:
 #Although these commands should function with just the input of two fasta
 #files, genome.fasta and transcriptome.fasta, their proper execution is not
@@ -12,7 +25,8 @@
 #modified as needed by the user. For example, the presence of spaces or tabs in
 #the ID line of the fasta files may cause problems downstream.
 
-#Copyright (c) 2014, Weitemier et al.
+#Copyright (c) 2014
+#K. Weitemier, S.C.K. Straub, R. Cronn, M. Fishbein, A. McDonnell, and A. Liston.
 #This script is free software: you can redistribute it and/or modify it under
 #the terms of the GNU General Public License as published by the Free Software
 #Foundation, either version 3 of the License, or (at your option) any later
@@ -21,7 +35,7 @@
 #task, however, this software comes with ABSOLUTELY NO WARRANTY,
 #not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-#TO RUN THIS SCRIPT (in a linux environment):
+#TO RUN THIS SCRIPT (in a Linux environment):
 #Copy this script into a new directory along with:
 #1) A fasta file of genomic contigs, named "genome.fasta"
 #2) A fasta file of transcriptome contigs, named "transcriptome.fasta"
@@ -39,7 +53,7 @@
 #Additional notes: This script calls two third-party programs, BLAT and
 #CD-HIT-EST. These need to be installed on your system so that they can be
 #called simply from the commands "blat" and "cd-hit-est", respectively. It is
-#also necessary to have Python installed to run grab_singleton_clusters.py and
+#also necessary to have Python 2.x installed to run grab_singleton_clusters.py and
 #blat_block_analyzer.py.
 
 
