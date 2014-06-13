@@ -139,7 +139,7 @@ grep -f unique_single_transcript_hits whole_gene_single_hit_genome_v_transcripto
 #in the target capture reaction. It can be modified by altering the "-s" flag.
 #The default minimum length for loci is 960 bp. This was chosen because it is a
 #multiple of 120 and was considered a large enough length for reliable gene tree
-#estimation.
+#estimation. It can be modified by altering the "-l" flag.
 
 echo """Finding loci and exons that meet length requirements."""
 date
