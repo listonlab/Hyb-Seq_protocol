@@ -117,8 +117,8 @@ awk '{if (($13-$12) >= ($11 * 0.95)) print $0}' single_hit_genome_v_transcriptom
 
 #Extract these transcripts from the transcriptome assembly
 cut -f10 whole_gene_single_hit_genome_v_transcriptome.pslx > single_whole_hits_vs_genome.txt
-sed -i -e 's/^/^>/' -e 's/$/\\\>/' single_whole_hits_vs_genome.txt
-grep -A1 --no-group-separator -f single_whole_hits_vs_genome.txt transcriptome.fasta > single_transcript_hits.fasta
+sed -i'' -e 's/^/^>/' -e 's/$/\\\>/' single_whole_hits_vs_genome.txt
+grep -A1 -f single_whole_hits_vs_genome.txt transcriptome.fasta | sed '/^--$/d' > single_transcript_hits.fasta
 
 ################################################################################
 #Cluster any nested transcripts
@@ -141,10 +141,10 @@ cd-hit-est -i single_transcript_hits.fasta -o single_transcript_hits_cluster_100
 echo """Clustering and removing transcripts with 90% identity."""
 date
 cd-hit-est -i single_transcript_hits_cluster_100.fasta -o single_transcript_hits_cluster_90.fasta -d 0 -c 0.9 -p 1 -g 1 > cluster_90_single_transcript_hits_log.txt
-./grab_singleton_clusters.py -i single_transcript_hits_cluster_90.fasta.clstr -o unique_single_transcript_hits_cluster_90.fasta.clstr
+python grab_singleton_clusters.py -i single_transcript_hits_cluster_90.fasta.clstr -o unique_single_transcript_hits_cluster_90.fasta.clstr
 grep -v '>Cluster' unique_single_transcript_hits_cluster_90.fasta.clstr | cut -d' ' -f2 | sed -e 's/\.\.\./\\\>/' -e 's/^/^/' > unique_single_transcript_hits
-grep -A1 --no-group-separator -f unique_single_transcript_hits single_transcript_hits_cluster_100.fasta > unique_single_transcript_hits.fasta
-sed -i -e 's/\^>/\\\</' unique_single_transcript_hits
+grep -A1 -f unique_single_transcript_hits single_transcript_hits_cluster_100.fasta | sed '/^--$/d' > unique_single_transcript_hits.fasta
+sed -i'' -e 's/\^>/\\\</' unique_single_transcript_hits
 grep -f unique_single_transcript_hits whole_gene_single_hit_genome_v_transcriptome.pslx > unique_single_hits.pslx
 
 ################################################################################
@@ -162,7 +162,7 @@ grep -f unique_single_transcript_hits whole_gene_single_hit_genome_v_transcripto
 
 echo """Finding loci and exons that meet length requirements."""
 date
-./blat_block_analyzer.py -i unique_single_hits.pslx -o large_enough_unique_single_hits.fasta -l 960 -s 120
+python blat_block_analyzer.py -i unique_single_hits.pslx -o large_enough_unique_single_hits.fasta -l 960 -s 120
 
 ################################################################################
 #Remove exons with 90% or greater similarity
@@ -174,10 +174,11 @@ date
 echo """Removing individual exons with high identity."
 date
 cd-hit-est -i large_enough_unique_single_hits.fasta -o large_enough_unique_single_hits_cluster90.fasta -d 0 -c 0.9 -p 1 -g 1 > cluster_90_large_enough_unique_single_hits_log.txt
-./grab_singleton_clusters.py -i large_enough_unique_single_hits_cluster90.fasta.clstr -o unique_blocks_large_single_hits_cluster90.fasta.clstr
+python grab_singleton_clusters.py -i large_enough_unique_single_hits_cluster90.fasta.clstr -o unique_blocks_large_single_hits_cluster90.fasta.clstr
 grep -v '>Cluster' unique_blocks_large_single_hits_cluster90.fasta.clstr | cut -d' ' -f2 | sed -e 's/\.\.\./\\\>/' -e 's/^/^/' > unique_blocks_large_single_hits
-grep -A1 --no-group-separator -f unique_blocks_large_single_hits large_enough_unique_single_hits.fasta > blocks_for_probe_design.fasta
+grep -A1 -f unique_blocks_large_single_hits large_enough_unique_single_hits.fasta | sed '/^--$/d' > blocks_for_probe_design.fasta
 echo """Process complete."""
+date
 
 #The final output file, blocks_for_probe_design.fasta, contains sequences of
 #each exon for each locus that are thought to be low-copy within the genome and
