@@ -57,11 +57,6 @@
 #also necessary to have Python 2.x installed to run grab_singleton_clusters.py
 #and blat_block_analyzer.py.
 
-#If you find this script helpful, please cite:
-#K. Weitemier, S.C.K. Straub, R. Cronn, M. Fishbein, R. Schmickl, A. McDonnell,
-#and A. Liston. 2014. Hyb-Seq: Combining target enrichment and genome skimming
-#for plant phylogenomics. Applications in Plant Sciences #####
-
 ################################################################################
 #Match genome and transcriptome sequences
 ################################################################################
@@ -183,8 +178,6 @@ cd-hit-est -i large_enough_unique_single_hits.fasta -o large_enough_unique_singl
 grep -v '>Cluster' unique_blocks_large_single_hits_cluster90.fasta.clstr | cut -d' ' -f2 | sed -e 's/\.\.\./\\\>/' -e 's/^/^/' > unique_blocks_large_single_hits
 grep -A1 --no-group-separator -f unique_blocks_large_single_hits large_enough_unique_single_hits.fasta > blocks_for_probe_design.fasta
 echo """Process complete."""
-date
-echo """\nIf you find this program helpful, please cite:\nK. Weitemier, S.C.K. Straub, R. Cronn, M. Fishbein, R. Schmickl, A. McDonnell, and A. Liston.\nHyb-Seq: Combining target enrichment and genome skimming for plant phylogenomics.\n2014. Applications in Plant Sciences #####\n"""
 
 #The final output file, blocks_for_probe_design.fasta, contains sequences of
 #each exon for each locus that are thought to be low-copy within the genome and
