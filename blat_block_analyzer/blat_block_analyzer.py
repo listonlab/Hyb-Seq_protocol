@@ -18,6 +18,12 @@ Great effort has been taken to make this software perform its said
 task, however, this software comes with ABSOLUTELY NO WARRANTY,
 not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
+If you find this program useful, please cite:
+
+K. Weitemier, S.C.K. Straub, R. Cronn, M. Fishbein, R. Schmickl, A. McDonnell,
+and A. Liston. 2014. Hyb-Seq: Combining target enrichment and genome skimming
+for plant phylogenomics. Applications in Plant Sciences 2(9): 1400042. 
+
 Input - A .pslx file from blat.""")
 parser.add_option("-i", action="store", type="string", dest="inname",
     help="Input filename", default="")

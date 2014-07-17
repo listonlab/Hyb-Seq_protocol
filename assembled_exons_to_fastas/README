@@ -19,6 +19,12 @@ PARTICULAR PURPOSE.  See the GNU General Public License for more details. You
 should have received a copy of the GNU General Public License along with this
 program.  If not, see <http://www.gnu.org/licenses/>.
 
+If you find this program useful, please cite:
+
+K. Weitemier, S.C.K. Straub, R. Cronn, M. Fishbein, R. Schmickl, A. McDonnell,
+and A. Liston. 2014. Hyb-Seq: Combining target enrichment and genome skimming
+for plant phylogenomics. Applications in Plant Sciences 2(9): 1400042.
+
 Input - A file containing a list of every .pslx file to be processed (one file
     per line), and a fasta file of the targeted contigs or exons. The .pslx
     files to be processed need to have been created with the targeted exons
