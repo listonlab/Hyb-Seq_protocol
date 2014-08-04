@@ -1,5 +1,6 @@
 Copyright (c) 2014
-K. Weitemier, S.C.K. Straub, R. Cronn, M. Fishbein, A. McDonnell, R. Schmickl, and A. Liston
+K. Weitemier, S.C.K. Straub, R. Cronn, M. Fishbein, A. McDonnell, R. Schmickl,
+and A. Liston
 
 Programs and documentation accompanying the paper:
 Hyb-Seq: Combining target enrichment and genome skimming for plant phylogenomics
@@ -19,3 +20,8 @@ all companion programs integrated into either the probe development or read
 analysis pipelines.
 
 Example datasets have been added: genome.fasta and transcriptome.fasta.
+
+NOTE: The latest version of CD-HIT (4.6.1) contains a bug that appears when
+using the example data provided here. To successfully use the example data one
+should either use a CD-HIT version prior to 4.6 or use the patched version
+supplied here.

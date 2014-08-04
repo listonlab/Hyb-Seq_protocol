@@ -1,0 +1,12 @@
+The official version of CD-HIT 4.6.1 contains a bug that creates and infinite
+loop when using a file with a small number of sequences. This includes the
+example data supplied here for the Hyb-Seq protocol.
+
+To test the probe design pipeline using the supplied example data, one should
+use either a version of CD-HIT prior to 4.6, or the patched version supplied
+here.
+
+Credit for the patch goes to Google Code user inve...@ebi.ac.uk
+(code.google.com/u/102897265328195006224) and is discussed as issue 18 on the
+CD-HIT Google Code site: https://code.google.com/p/cdhit/issues/detail?id=18
+
