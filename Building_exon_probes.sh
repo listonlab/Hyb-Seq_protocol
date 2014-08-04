@@ -109,7 +109,7 @@ blat genome.fasta transcriptome.fasta -tileSize=8 -minIdentity=99 -noHead -out=p
 
 echo """Finding and extracting matches with a single hit."""
 date
-cut -f10 genome_v_transcriptome.pslx | sort | uniq -c | grep '      1 ' | sed -e 's/      1 /\\\</' -e 's/$/\\\>/' > single_hits_vs_genome.txt
+cut -f10 genome_v_transcriptome.pslx | sort | uniq -u | sed -e 's/^/\\\</' -e 's/$/\\\>/' > single_hits_vs_genome.txt
 grep -f single_hits_vs_genome.txt genome_v_transcriptome.pslx > single_hit_genome_v_transcriptome.pslx
 
 ################################################################################
