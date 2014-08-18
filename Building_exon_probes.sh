@@ -1,4 +1,4 @@
-#/bin/tcsh
+#!/usr/bin/env tcsh
 
 #                                 Appendix S1
 #                           Building_exon_probes.sh
