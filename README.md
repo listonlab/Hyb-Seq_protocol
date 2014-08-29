@@ -13,7 +13,7 @@ This file is both a program that can be run in a Linux environment, and a
 helpful document with detailed notes.
 
 A workflow for analyzing the raw reads obtained from the Hyb-Seq protocol is
-described in [Data Supplement S2](Data_Supplement_S2.pdf).
+described in [Data Supplement S2](Data_Supplement_2.pdf).
 
 [assembled_exons_to_fastas](assembled_exons_to_fastas), [blat_block_analyzer](blat_block_analyzer), and [grab_singleton_clusters](grab_singleton_clusters) are
 all companion programs integrated into either the probe development or read
