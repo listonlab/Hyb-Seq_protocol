@@ -4,7 +4,7 @@ Hyb-Seq: Combining target enrichment and genome skimming for plant phylogenomics
 Programs and documentation accompanying the paper:
 [K. Weitemier, S.C.K. Straub, R. Cronn, M. Fishbein, A. McDonnell, R. Schmickl,
 and A. Liston. 2014. Hyb-Seq: Combining target enrichment and genome skimming for plant phylogenomics
-Applications in Plant Sciences 2(9): 1400042](http://www.bioone.org/doi/pdf/10.3732/apps.1400042).
+Applications in Plant Sciences 2(9): 1400042](http://www.bioone.org/doi/full/10.3732/apps.1400042).
 
 A protocol for developing probes for targeted sequence capture from an input of
 genomic and transcriptomic data is contained within Data Supplement S1:
