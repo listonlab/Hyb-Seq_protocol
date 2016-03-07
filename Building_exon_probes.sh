@@ -121,8 +121,7 @@ date
 awk '{if (($13-$12) >= ($11 * 0.95)) print $0}' single_hit_genome_v_transcriptome.pslx > whole_gene_single_hit_genome_v_transcriptome.pslx
 
 #Extract these transcripts from the transcriptome assembly
-cut -f10 whole_gene_single_hit_genome_v_transcriptome.pslx > single_whole_hits_vs_genome.txt
-sed -i'' -e 's/^/^>/' -e 's/$/\\\>/' single_whole_hits_vs_genome.txt
+cut -f10 whole_gene_single_hit_genome_v_transcriptome.pslx | sed -e 's/^/^>/' -e 's/$/\\\>/' > single_whole_hits_vs_genome.txt
 grep -A1 -f single_whole_hits_vs_genome.txt transcriptome.fasta | sed '/^--$/d' > single_transcript_hits.fasta
 
 ################################################################################
@@ -149,8 +148,8 @@ cd-hit-est -i single_transcript_hits_cluster_100.fasta -o single_transcript_hits
 python grab_singleton_clusters.py -i single_transcript_hits_cluster_90.fasta.clstr -o unique_single_transcript_hits_cluster_90.fasta.clstr
 grep -v '>Cluster' unique_single_transcript_hits_cluster_90.fasta.clstr | cut -d' ' -f2 | sed -e 's/\.\.\./\\\>/' -e 's/^/^/' > unique_single_transcript_hits
 grep -A1 -f unique_single_transcript_hits single_transcript_hits_cluster_100.fasta | sed '/^--$/d' > unique_single_transcript_hits.fasta
-sed -i'' -e 's/\^>/\\\</' unique_single_transcript_hits
-grep -f unique_single_transcript_hits whole_gene_single_hit_genome_v_transcriptome.pslx > unique_single_hits.pslx
+sed -e 's/\^>/\\\</' unique_single_transcript_hits > unique_single_transcript_hits_for_pslx
+grep -f unique_single_transcript_hits_for_pslx whole_gene_single_hit_genome_v_transcriptome.pslx > unique_single_hits.pslx
 
 ################################################################################
 #Find loci and exons that meet length requirements
